@@ -1,0 +1,86 @@
+﻿@model SMARTHardDrive.Models.SMARTData
+@{
+    // Установка заголовка в зависимости от того, является ли модель пустой или нет
+    ViewData["Title"] = Model != null && Model.Id != 0 ? "Изменение данных" : "Добавление данных";
+}
+<h2 class="text-center mb-4">@ViewData["Title"]</h2>
+
+<div class="container">
+    <form asp-action="@(Model != null && Model.Id != 0 ? "Edit" : "Create")" method="post" class="needs-validation" novalidate>
+        <input type="hidden" asp-for="Id" />
+
+        <div class="row mb-3">
+            <label asp-for="Value" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="Value" class="form-control" />
+                <span asp-validation-for="Value" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label asp-for="Date" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="Date" class="form-control" />
+                <span asp-validation-for="Date" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label asp-for="Status" class="col-sm-2 col-form-label"></label>
+            <div class="col-sm-10">
+                <input asp-for="Status" class="form-control" />
+                <span asp-validation-for="Status" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">Жесткий диск</label>
+            <div class="col-sm-10">
+                <select name="hardDriveId" class="form-select">
+                    @foreach (var hardDrive in ViewBag.HardDrives)
+                    {
+                        if (Model != null && Model.Id != 0 && hardDrive.Id == Model.HardDriveId)
+                        {
+                            <option selected value="@hardDrive.Id">@hardDrive.SerialNumber</option>
+                        }
+                        else
+                        {
+                            <option value="@hardDrive.Id">@hardDrive.SerialNumber</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+
+        <div class="row mb-3">
+            <label class="col-sm-2 col-form-label">SMART атрибут</label>
+            <div class="col-sm-10">
+                <select name="attributeId" class="form-select">
+                    @foreach (var Sattribute in ViewBag.Attributes)
+                    {
+                        if (Model != null && Model.Id != 0 && Sattribute.Id == Model.AttributeId)
+                        {
+                            <option selected value="@Sattribute.Id">@Sattribute.Name</option>
+                        }
+                        else
+                        {
+                            <option value="@Sattribute.Id">@Sattribute.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-10 offset-sm-2">
+                <button type="submit" class="btn btn-primary">Сохранить</button>
+                <a asp-action="Index"
+                   class="btn btn-secondary ms-2">Отмена</a>
+            </div>
+        </div>
+    </form>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
+

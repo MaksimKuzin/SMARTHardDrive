@@ -1,0 +1,53 @@
+﻿@model IEnumerable<SMARTHardDrive.Models.SMARTAttribute>
+
+@{
+    ViewData["Title"] = "SMART атрибуты";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Code)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Threshold)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Unit)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                @Html.DisplayFor(modelItem => item.Name)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Code)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Description)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Threshold)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Unit)
+            </th>
+            <th>
+                <a href="/SMARTAttribute/Edit?id=@item.Id">&#9998;</a>
+            </th>
+            <th>
+                <a href="/SMARTAttribute/Delete?id=@item.Id">&#128465;</a>
+            </th>
+        </tr>
+    }
+</table>
+<a href="/SMARTAttribute/Create" class="btn btn-success">Добавить атрибут</a>

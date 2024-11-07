@@ -1,0 +1,65 @@
+﻿@model IEnumerable<SMARTHardDrive.Models.HardDrive>
+
+@{
+    ViewData["Title"] = "Жесткие диски";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.SerialNumber)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Model)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.CapacityGB)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ConnectionType)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.InstallDate)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Location)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                @Html.DisplayFor(modelItem => item.SerialNumber)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Model)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.CapacityGB)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.ConnectionType)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.InstallDate)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Location)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Status)
+            </th>
+            <th>
+                <a href="/HardDrive/Edit?id=@item.Id">&#9998;</a>
+            </th>
+            <th>
+                <a href="/HardDrive/Delete?id=@item.Id">&#128465;</a>
+            </th>
+        </tr>
+    }
+</table>
+<a href="/HardDrive/Create" class="btn btn-success">Добавить жесткий диск</a>

@@ -1,0 +1,53 @@
+﻿@model IEnumerable<SMARTHardDrive.Models.SMARTData>
+
+@{
+    ViewData["Title"] = "SMART данные";
+}
+
+<table class="table">
+    <tr>
+        <th>
+            SMART Атрибут
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Value)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            S/N Жесткого диска
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                @Html.DisplayFor(modelItem => item.Attribute.Name)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Value)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Date)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Status)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.HardDrive.SerialNumber)
+            </th>
+            <th>
+                <a href="/SMARTData/Edit?id=@item.Id">&#9998;</a>
+            </th>
+            <th>
+                <a href="/SMARTData/Delete?id=@item.Id">&#128465;</a>
+            </th>
+        </tr>
+    }
+</table>
+<a href="/SMARTData/Create" class="btn btn-success">Добавить данные</a>
