@@ -1,8 +1,65 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model DashboardViewModel
+@{
+    ViewData["Title"] = "Главная";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Состояние системы</h5>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">
+                            Всего жестких дисков: <strong>@Model.TotalHardDrives</strong>
+                        </li>
+                        <li class="list-group-item text-success">
+                            В рабочем состоянии: <strong>@Model.WorkingHardDrives</strong>
+                        </li>
+                        <li class="list-group-item text-danger">
+                            Неисправны: <strong>@Model.FaultyHardDrives</strong>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h5 class="card-title">Последние оповещения</h5>
+                    @if (Model.Alerts.Any())
+                    {
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Тип</th>
+                                    <th>Описание</th>
+                                    <th>Дата</th>
+                                    <th>Статус</th>
+                                    <th>Уровень важности</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var alert in Model.Alerts.Take(5))
+                                {
+                                    <tr>
+                                        <td>@alert.Type</td>
+                                        <td>@alert.Description</td>
+                                        <td>@alert.Date.ToString("dd.MM.yyyy HH:mm")</td>
+                                        <td>@alert.Status</td>
+                                        <td>@alert.Severity</td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    }
+                    else
+                    {
+                        <p class="text-muted">Нет новых оповещений</p>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
