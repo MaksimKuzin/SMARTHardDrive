@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "SMART атрибуты";
+    var role = Context.Session.GetString("UserRole");
 }
 
 <table class="table">
@@ -41,13 +42,19 @@
             <th>
                 @Html.DisplayFor(modelItem => item.Unit)
             </th>
-            <th>
-                <a href="/SMARTAttribute/Edit?id=@item.Id">&#9998;</a>
-            </th>
-            <th>
-                <a href="/SMARTAttribute/Delete?id=@item.Id">&#128465;</a>
-            </th>
+            @if (role == "Admin")
+            {
+                <th>
+                    <a href="/SMARTAttribute/Edit?id=@item.Id">&#9998;</a>
+                </th>
+                <th>
+                    <a href="/SMARTAttribute/Delete?id=@item.Id">&#128465;</a>
+                </th>
+            }
         </tr>
     }
 </table>
-<a href="/SMARTAttribute/Create" class="btn btn-success">Добавить атрибут</a>
+@if (role == "Admin")
+{
+    <a href="/SMARTAttribute/Create" class="btn btn-success">Добавить атрибут</a>
+}

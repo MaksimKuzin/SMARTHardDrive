@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Оповещения";
+    var role = Context.Session.GetString("UserRole");
 }
 <div class="input-group">
     <a class="btn btn-primary" href="/Alert/OnlyCritical">Только критически важные</a>
@@ -49,13 +50,19 @@
             <th>
                 @string.Join(", ", item.HardDrives.Select(x => x.SerialNumber))
             </th>
-            <th>
-                <a href="/Alert/Edit?id=@item.Id">&#9998;</a>
-            </th>
-            <th>
-                <a href="/Alert/Delete?id=@item.Id">&#128465;</a>
-            </th>
+            @if (role == "Admin")
+            {
+                <th>
+                    <a href="/Alert/Edit?id=@item.Id">&#9998;</a>
+                </th>
+                <th>
+                    <a href="/Alert/Delete?id=@item.Id">&#128465;</a>
+                </th>
+            }
         </tr>
     }
 </table>
-<a href="/Alert/Create" class="btn btn-success">Добавить оповещение</a>
+@if (role == "Admin")
+{
+    <a href="/Alert/Create" class="btn btn-success">Добавить оповещение</a>
+}

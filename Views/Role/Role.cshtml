@@ -1,0 +1,25 @@
+﻿﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Выбор роли</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+</head>
+<body class="d-flex align-items-center justify-content-center" style="height: 100vh;">
+    <div class="text-center">
+        <h1>Выберите вашу роль</h1>
+        <form action="/Role/SelectRole" method="post">
+            <select name="role" class="form-select mb-3">
+                <option value="Admin">Администратор</option>
+                <option value="User">Пользователь</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Войти</button>
+        </form>
+    </div>
+</body>
+</html>
