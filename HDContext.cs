@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using SMARTHardDrive.Models;
 
 namespace SMARTHardDrive
@@ -11,7 +12,7 @@ namespace SMARTHardDrive
         public DbSet<Alert> Alerts { get; set; }
         public DbSet<Maintenance> Maintenances { get; set; }
 
-        public HDContext(DbContextOptions<HDContext> options): base(options)
+        public HDContext(DbContextOptions<HDContext> options) : base(options)
         {
         }
         public HDContext() { }
@@ -48,6 +49,17 @@ namespace SMARTHardDrive
                 .HasIndex(hd => hd.SerialNumber)
                 .IsUnique(false);
         }
-
+        public void AddAlert(string type, string description, DateTime date, string severity, string status, int hardDriveId)
+        {
+            Database.ExecuteSqlRaw(
+                "EXEC AddAlert @Type, @Description, @Date, @Severity, @Status, @HardDriveId",
+                new SqlParameter("@Type", type),
+                new SqlParameter("@Description", description),
+                new SqlParameter("@Date", date),
+                new SqlParameter("@Severity", severity),
+                new SqlParameter("@Status", status),
+                new SqlParameter("@HardDriveId", hardDriveId)
+            );
+        }
     }
 }

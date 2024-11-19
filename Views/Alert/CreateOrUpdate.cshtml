@@ -52,7 +52,7 @@
         <div class="row mb-3">
             <label class="col-sm-2 col-form-label">Жесткий диск</label>
             <div class="col-sm-10">
-                <select name="hardDrives" class="form-select" multiple>
+                <select id="hardDrivesSelect" name="hardDrives" class="form-select" multiple>
                     @foreach (var hardDrive in ViewBag.HardDrives)
                     {
                         if (Model != null && Model.Id != 0 && Model.HardDrives.Contains(hardDrive))
@@ -81,4 +81,35 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const form = document.querySelector("form");
+            const dateInput = document.querySelector("input[name='Date']");
+            const hardDrivesSelect = document.getElementById("hardDrivesSelect");
+            const hardDrivesError = document.getElementById("hardDrivesError");
 
+            form.addEventListener("submit", function (event) {
+                let isValid = true;
+
+                // Проверка, что "Дата" не раньше сегодняшней даты
+                const selectedDate = new Date(dateInput.value);
+                const today = new Date();
+                today.setHours(0, 0, 0, 0); // Установка времени на начало дня
+
+                if (selectedDate > today) {
+                    alert("Дата не может быть позже сегодняшней.");
+                    isValid = false;
+                }
+
+                // Проверка, что выбран хотя бы один жесткий диск
+                if (hardDrivesSelect.selectedOptions.length === 0) {
+                    alert("Должен быть выбран минимум 1 жесткий диск.");
+                    isValid = false;
+                }
+                // Если какая-то проверка не прошла, отменяем отправку формы
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>

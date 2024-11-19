@@ -23,6 +23,11 @@ namespace SMARTHardDrive.Controllers
         {
             _db.SMARTData.Add(SMARTData);
             _db.SaveChanges();
+            var atr = _db.SMARTAttributes.FirstOrDefault(x => x.Id == SMARTData.AttributeId);
+            if(SMARTData.Value > atr.Threshold)
+            {
+                _db.AddAlert("Внимание", "Значение превышено", DateTime.Now, "Критическое", "Отправлено", SMARTData.HardDriveId);
+            }
             return RedirectToAction("Index");
         }
         public IActionResult Edit(int id)
@@ -43,6 +48,7 @@ namespace SMARTHardDrive.Controllers
         {
             var SMARTData = _db.SMARTData.FirstOrDefault(x => x.Id == id);
             _db.SMARTData.Remove(SMARTData);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
     }

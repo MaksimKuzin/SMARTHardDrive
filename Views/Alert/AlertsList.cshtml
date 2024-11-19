@@ -3,7 +3,9 @@
 @{
     ViewData["Title"] = "Оповещения";
 }
-
+<div class="input-group">
+    <a class="btn btn-primary" href="/Alert/OnlyCritical">Только критически важные</a>
+</div>
 <table class="table">
     <tr>
         <th>
@@ -56,4 +58,4 @@
         </tr>
     }
 </table>
-<a href="/Alert/Create" class="btn btn-success">Добавить данные</a>
+<a href="/Alert/Create" class="btn btn-success">Добавить оповещение</a>

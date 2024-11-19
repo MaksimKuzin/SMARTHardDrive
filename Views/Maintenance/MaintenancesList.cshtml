@@ -1,0 +1,59 @@
+﻿@model IEnumerable<SMARTHardDrive.Models.Maintenance>
+
+@{
+    ViewData["Title"] = "Технические обсулживания";
+}
+
+<form method="get" action="/Maintenance/MaintenancesByDate">
+    <div class="mb-3">
+        <label for="startDate" class="form-label">Дата от:</label>
+        <input type="date" id="startDate" name="startDate" class="form-control" />
+    </div>
+    <div class="mb-3">
+        <label for="endDate" class="form-label">Дата до:</label>
+        <input type="date" id="endDate" name="endDate" class="form-control" />
+    </div>
+    <button type="submit" class="btn btn-primary">Фильтровать</button>
+</form>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Description)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Date)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PerformedBy)
+        </th>
+        <th>
+            Жесткий диск
+        </th>
+        <th></th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <th>
+                @Html.DisplayFor(modelItem => item.Description)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.Date)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.PerformedBy)
+            </th>
+            <th>
+                @Html.DisplayFor(modelItem => item.HardDrive.SerialNumber)
+            </th>
+            <th>
+                <a href="/Maintenance/Edit?id=@item.Id">&#9998;</a>
+            </th>
+            <th>
+                <a href="/Maintenance/Delete?id=@item.Id">&#128465;</a>
+            </th>
+        </tr>
+    }
+</table>
+<a href="/Maintenance/Create" class="btn btn-success">Добавить ТО</a>

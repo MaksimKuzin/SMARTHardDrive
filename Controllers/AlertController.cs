@@ -70,5 +70,10 @@ namespace SMARTHardDrive.Controllers
             _db.SaveChanges();
             return RedirectToAction("Index");
         }
+        public IActionResult OnlyCritical()
+        {
+            var model = _db.Alerts.Where(x => x.Severity == "Критическое").AsEnumerable();
+            return View("AlertsList", model);
+        }
     }
 }

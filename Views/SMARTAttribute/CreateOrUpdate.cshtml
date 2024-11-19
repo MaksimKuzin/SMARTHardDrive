@@ -61,4 +61,39 @@
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
 }
-  
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Получаем форму
+            const form = document.querySelector("form");
+
+            // Добавляем обработчик события submit
+            form.addEventListener("submit", function (event) {
+                // Получаем значения полей
+                const attributeCode = document.querySelector("input[name='Code']");
+                const criticalValue = document.querySelector("input[name='Threshold']");
+                let isValid = true;
+
+                // Очистка предыдущих сообщений об ошибках
+                attributeCode.classList.remove("is-invalid");
+                criticalValue.classList.remove("is-invalid");
+
+                // Проверка "Кода атрибута"
+                if (!attributeCode.value.trim()) {
+                    isValid = false;
+                    alert("Код атрибута обязателен");
+                }
+
+                // Проверка "Критического значения"
+                const criticalValueNumber = Number(criticalValue.value);
+                if (isNaN(criticalValueNumber) || criticalValueNumber < 0) {
+                    isValid = false;
+                    alert("Критическое значение должно быть числом больше или равно 0");
+                }
+
+                // Если форма не валидна, предотвращаем отправку
+                if (!isValid) {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>

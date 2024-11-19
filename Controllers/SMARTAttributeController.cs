@@ -39,6 +39,7 @@ namespace SMARTHardDrive.Controllers
         {
             var SMARTAttribute = _db.SMARTAttributes.FirstOrDefault(x => x.Id == id);
             _db.SMARTAttributes.Remove(SMARTAttribute);
+            _db.SaveChanges();
             return RedirectToAction("Index");
         }
     }

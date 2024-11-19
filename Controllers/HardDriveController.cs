@@ -9,7 +9,7 @@ namespace SMARTHardDrive.Controllers
         public IActionResult Index()
         {
             var model = _db.HardDrives.AsEnumerable();
-            return View("HardDrivesList",model);
+            return View("HardDrivesList", model);
         }
         public IActionResult Create()
         {
@@ -39,7 +39,13 @@ namespace SMARTHardDrive.Controllers
         {
             var hard = _db.HardDrives.FirstOrDefault(x => x.Id == id);
             _db.HardDrives.Remove(hard);
+            _db.SaveChanges();
             return RedirectToAction("Index");
+        }
+        public IActionResult Search(string searchString)
+        {
+            var model = _db.HardDrives.Where(x => x.SerialNumber.Contains(searchString)).AsEnumerable();
+            return View("HardDrivesList", model);
         }
     }
 

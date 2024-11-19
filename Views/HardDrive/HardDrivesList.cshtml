@@ -4,6 +4,12 @@
     ViewData["Title"] = "Жесткие диски";
 }
 
+<form asp-action="Search" class="mb-4">
+    <div class="input-group">
+        <input type="text" name="searchString" class="form-control" placeholder="Введите серийный номер" aria-label="Поиск по серийному номеру">
+        <button class="btn btn-primary" type="submit">Поиск</button>
+    </div>
+</form>
 <table class="table">
     <tr>
         <th>
@@ -26,6 +32,9 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Status)
+        </th>
+        <th>
+            Дата последнего ТО
         </th>
         <th></th>
     </tr>
@@ -52,6 +61,9 @@
             </th>
             <th>
                 @Html.DisplayFor(modelItem => item.Status)
+            </th>
+            <th>
+                @(item.Maintenances != null && item.Maintenances.Any() ? item.Maintenances.Max(x => x.Date) : "ТО не проводились")
             </th>
             <th>
                 <a href="/HardDrive/Edit?id=@item.Id">&#9998;</a>
